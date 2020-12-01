@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+    $('#sandbox-container input').datepicker({
+    });
+
 <h2>@ViewBag.Acao</h2>
 
 @using (Html.BeginForm("Save", "Client"))
@@ -12,6 +16,7 @@
 
         @Html.LabelFor(m =>m.cliente.Name)
         @Html.TextBoxFor(m => m.cliente.Name, new {@class = "form-control" })
+        @Html.ValidationMessageFor(m=>m.cliente.Name)
     </div>
     <div class=" form-group">
 
@@ -27,6 +32,7 @@
 
         @Html.LabelFor(m => m.cliente.SubscribeDate)
         @Html.TextBoxFor(m => m.cliente.SubscribeDate, new { @class = "form-control" })
+       
     </div>
     <div class="checkbox">
         <label>
@@ -37,11 +43,12 @@
     <div class=" form-group">
      
         @Html.DropDownListFor(m => m.cliente.PlanID, new SelectList(Model.Planos,"Id","Name"), "Selecione Plano", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.cliente.PlanID)
     </div>
     
     <!--ao editar dava erro porque não estava a passar o ID como parametro , por isso no editar não gravava , então vamos passar o parametro Id-->
 
     @Html.HiddenFor(c => c.cliente.Id)
     <button type="submit" class="btn btn-success">Guardar</button>
-};
+}
 

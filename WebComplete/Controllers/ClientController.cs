@@ -44,6 +44,8 @@ namespace WebComplete.Controllers
         }
 
 
+
+
         public ActionResult New()
         {
             //Listar Plan , e _context para abri na db, mas para que isso aconteça há que instanciar a PlanUserViewModel porque Plano é um modelo diferente de Client e so podemos passar um modelo para a view 
@@ -53,6 +55,7 @@ namespace WebComplete.Controllers
 
             PlanUserViewModel viewModel = new PlanUserViewModel()
             {
+                 cliente = new Client(),
                 Planos = Planox,
 
             };
@@ -60,9 +63,31 @@ namespace WebComplete.Controllers
             ViewBag.Acao = "Novo Cliente";
             return View(viewModel);
         }
+
+
+
+
         [HttpPost]
         public ActionResult Save(Client cliente)
         {
+
+            if (!ModelState.IsValid)
+            {
+
+                var viewModel = new PlanUserViewModel()
+                {
+                    Planos = _context.Plan.ToList(),
+                    cliente = cliente
+
+                };
+
+                ViewBag.Acao = "Novo Cliente";
+                return View("New", viewModel);
+            }
+
+
+
+
             if (cliente.Id == 0)
             {
                 _context.Client.Add(cliente);
@@ -83,6 +108,11 @@ namespace WebComplete.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index","Client");
         }
+      
+        
+        
+        
+        
         // Edit a variavel client via encontar um id ja criado , depois da validação  
         public ActionResult Edit(int Id)
         {

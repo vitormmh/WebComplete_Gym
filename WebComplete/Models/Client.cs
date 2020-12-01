@@ -9,7 +9,7 @@ namespace WebComplete.Models
     public class Client
     {
         public int Id  { get; set; }
-
+        //Data Notations - tipo de validação 
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
@@ -28,7 +28,7 @@ namespace WebComplete.Models
         public DateTime SubscribeDate { get; set; }
 
         public bool  IsSubscrivedToNews { get; set; }
-
+        [Required]
         public Plan Plan { get; set; }
         public int PlanID { get; set; }
     }
