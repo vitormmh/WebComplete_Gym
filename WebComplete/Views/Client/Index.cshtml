@@ -1,0 +1,60 @@
+﻿del List<WebComplete.Models.Client>
+    @{
+        ViewBag.Title = "Home Page";
+    }
+
+    
+    <script type="text/javascript">
+
+        function DeleteClient(IdClient)
+        {
+            var redidrectPage = "http://" + window.location.host + "/Client/Delete/" + IdClient;
+
+            if (confirm("Deseja apagar este cliente?"))
+            {
+                window.location.replace(redidrectPage);
+            }  
+          
+        }
+
+        function CriarClient()
+        {
+            var redidrectPage = "http://" + window.location.host + "/Client/New/"; 
+            window.location.replace(redidrectPage);
+        }
+
+    </script> 
+    <div class="jumbotron">
+        <h1>Clientes</h1>
+
+    </div>
+   
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Plano</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Mail</td>
+                    <td>@item.Plan.Name</td>
+                    <td>@Html.ActionLink("Editar","Edit", new {id = item.Id }, new {@class="btn btn-warning" })
+                    <button class="btn btn-danger" onclick="DeleteClient(@item.Id)">Excluir</button>
+                    <button class="btn btn-success" onclick="CriarClient()">Novo</button>
+                   
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+

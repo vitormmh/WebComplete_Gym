@@ -1,0 +1,44 @@
+﻿
+@model WebComplete.Models.ViewModel.PlanUserViewModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>@Model.cliente.Name</h1>
+    <p>
+        @if (Model.Planos.Count > 0)
+        {
+            <ul>
+                @foreach (var item in Model.PlanoA)
+                {
+                    <li>@item.Name  @item.Modalidade  - @item.Value</li>
+
+                }
+            </ul>
+        }
+        else
+        {
+        <p>Não existem Planos</p>
+        }
+
+    </p>
+
+    @if (Model.Planos.Count > 0)
+    {
+    <ul>
+           @foreach (var item in Model.Planos)
+           {
+               <li>@item.Name -  @item.Value</li>
+
+           }
+    </ul>
+    }
+    else {
+        <p>Não existem Planos</p>
+    }
+</div>
+
+<div class="row">
+ 
+</div>
