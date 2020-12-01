@@ -21,6 +21,7 @@ namespace WebComplete.Models
 
         [Required]
         [Display(Name = "Data de Nascimento")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         [Required]
