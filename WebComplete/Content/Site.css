@@ -31,3 +31,8 @@ textarea {
     border: 2px solid red;
 
 }
+
+.input-validation-error form-control{
+
+    border: 2px solid red;
+}
