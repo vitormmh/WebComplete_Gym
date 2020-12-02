@@ -5,6 +5,8 @@ using System.Net;
 using System.Web.Http;
 using System.Net.Http;
 using WebComplete.Models;
+using WebComplete.Dto;
+using AutoMapper;
 
 namespace WebComplete.Controllers.Api
 {
@@ -19,15 +21,16 @@ namespace WebComplete.Controllers.Api
 
 
         // Get /Api/Clients 
-        
-        public IEnumerable<Client> GetClient()
+
+        //Select não é um metodo por isso não é Client.ClientDto(), mas é um delegate - permite que você faça referência a um método
+        public IEnumerable<ClientDto> GetClient()
         {
-            return _context.Client.ToList();
+            return _context.Client.ToList().Select(Mapper.Map<Client, ClientDto>);
         }
 
         //Get /api/Clients/1
      
-        public Client GetClient(int Id)
+        public ClientDto GetClient(int Id)
         {
             var cliente = _context.Client.SingleOrDefault(c => c.Id == Id);
             if (cliente == null)
@@ -35,44 +38,43 @@ namespace WebComplete.Controllers.Api
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             }
-            else { return cliente; }
+            else { return Mapper.Map<Client,ClientDto>(cliente); }
          
         }
 
      // POST /Api/Clients
      [HttpPost]
-        public Client CreateClient(Client cliente)
+        public ClientDto CreateClient(ClientDto clienteDto)
         {
             if (!ModelState.IsValid)
-             throw new HttpResponseException(HttpStatusCode.BadRequest); 
-            
-                _context.Client.Add(cliente);
-                _context.SaveChanges();
+             throw new HttpResponseException(HttpStatusCode.BadRequest);
+            var client = Mapper.Map<ClientDto, Client>(clienteDto);
 
-            return cliente;
+            //como a inserçao vem do lado do ClientDto então temos que criar um Id
+            clienteDto.Id = client.Id;
+
+            _context.Client.Add(client);
+            _context.SaveChanges();
+
+            return clienteDto;
 
         }
 
          //PUT /Api/Clients
         [HttpPut]
 
-        public void UpdateClient(int id, Client cliente)
+        public void UpdateClient(int id, Client clienteDto)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
             var clientIntId = _context.Client.SingleOrDefault(c => c.Id == id);
             // clientIntdb o meu cliente na base de dados 
-
+            //o mapeamento é direto porque se trata de um update 
             if (clientIntId != null)
             {
-                clientIntId.Name = cliente.Name;
-                clientIntId.Mail = cliente.Mail;
-                clientIntId.PlanID = cliente.PlanID;
-                clientIntId.BirthDate = cliente.BirthDate;
-
+                Mapper.Map(clienteDto, clientIntId);
                 _context.SaveChanges();
-
             }
              throw new HttpResponseException(HttpStatusCode.NotFound);
 
