@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using System.Net.Http;
 using WebComplete.Models;
 
 namespace WebComplete.Controllers.Api
@@ -16,42 +17,43 @@ namespace WebComplete.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
-        // Get /api/Client 
-        [HttpGet]
+
+        // Get /Api/Clients 
+        
         public IEnumerable<Client> GetClient()
         {
             return _context.Client.ToList();
         }
 
-        //Get /api/Client/1
-        [HttpGet]
+        //Get /api/Clients/1
+     
         public Client GetClient(int Id)
         {
-            var Cliente = _context.Client.SingleOrDefault(c => c.Id == Id);
-            if (Cliente == null)
+            var cliente = _context.Client.SingleOrDefault(c => c.Id == Id);
+            if (cliente == null)
             {
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             }
-            else { return Cliente; }
+            else { return cliente; }
          
         }
 
-     // POST /Api/Client
+     // POST /Api/Clients
      [HttpPost]
         public Client CreateClient(Client cliente)
         {
             if (!ModelState.IsValid)
-                  throw new HttpResponseException(HttpStatusCode.BadRequest);
-
-            _context.Client.Add(cliente);
-            _context.SaveChanges();
+             throw new HttpResponseException(HttpStatusCode.BadRequest); 
+            
+                _context.Client.Add(cliente);
+                _context.SaveChanges();
 
             return cliente;
 
         }
 
-         //PUT /Api/Client
+         //PUT /Api/Clients
         [HttpPut]
 
         public void UpdateClient(int id, Client cliente)
@@ -77,7 +79,7 @@ namespace WebComplete.Controllers.Api
         }
 
 
-        //DELETE /api/Client/1
+        //DELETE /api/Clients/1
         [HttpDelete]
         public void DeleteClient(int id)
         {

@@ -30,7 +30,7 @@ namespace WebComplete.Controllers
 
             PlanUserViewModel model = new PlanUserViewModel();
 
-            model.cliente = user;
+            model.Cliente = user;
             model.Planos = ListPlan;
             model.PlanoA = ListPlan2;
 

@@ -13,41 +13,41 @@
 {
     <div class=" form-group">
 
-        @Html.LabelFor(m =>m.cliente.Name)
-        @Html.TextBoxFor(m => m.cliente.Name, new {@class = "form-control" })
-        @Html.ValidationMessageFor(m=>m.cliente.Name)
+        @Html.LabelFor(m =>m.Cliente.Name)
+        @Html.TextBoxFor(m => m.Cliente.Name, new {@class = "form-control" })
+       
     </div>
     <div class=" form-group">
 
-        @Html.LabelFor(m => m.cliente.Mail)
-        @Html.TextBoxFor(m => m.cliente.Mail, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Cliente.Mail)
+        @Html.TextBoxFor(m => m.Cliente.Mail, new { @class = "form-control" })
     </div>
     <div class=" form-group">
 
-        @Html.LabelFor(m => m.cliente.BirthDate)
-        @Html.TextBoxFor(m => m.cliente.BirthDate, "{0:d MMM yyyy }", new { @class = "form-control" })
+        @Html.LabelFor(m => m.Cliente.BirthDate)
+        @Html.TextBoxFor(m => m.Cliente.BirthDate, "{0:dd MMM yyyy }", new { @class = "form-control" })
     </div>
     <div class=" form-group">
 
-        @Html.LabelFor(m => m.cliente.SubscribeDate)
-        @Html.TextBoxFor(m => m.cliente.SubscribeDate, new { @class = "form-control" })
+        @Html.LabelFor(m => m.Cliente.SubscribeDate)
+        @Html.TextBoxFor(m => m.Cliente.SubscribeDate, new { @class = "form-control" })
        
     </div>
     <div class="checkbox">
         <label>
-            @Html.CheckBoxFor(m => m.cliente.IsSubscrivedToNews) Receber Noticias
+            @Html.CheckBoxFor(m => m.Cliente.IsSubscrivedToNews) Receber Noticias
         </label>
        
     </div>
     <div class=" form-group">
      
-        @Html.DropDownListFor(m => m.cliente.PlanID, new SelectList(Model.Planos,"Id","Name"), "Selecione Plano", new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.cliente.PlanID)
+        @Html.DropDownListFor(m => m.Cliente.PlanID, new SelectList(Model.Planos,"Id","Name"), "Selecione Plano", new { @class = "form-control" })
+      
     </div>
     
     <!--ao editar dava erro porque não estava a passar o ID como parametro , por isso no editar não gravava , então vamos passar o parametro Id-->
 
-    @Html.HiddenFor(c => c.cliente.Id)
-    <button type="submit" class="btn btn-success">Guardar</button>
+   @Html.HiddenFor(c => c.Cliente.Id)
+    <button type="submit" class="btn btn-success">Save</button>
 }
 

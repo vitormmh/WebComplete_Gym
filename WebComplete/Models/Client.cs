@@ -19,17 +19,16 @@ namespace WebComplete.Models
         [Display(Name = "Email")]
         public string Mail { get; set; }
 
-        [Required]
+      
         [Display(Name = "Data de Nascimento")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MMM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
-        [Required]
+   
         [Display(Name = "Data de Inscrição")]
         public DateTime SubscribeDate { get; set; }
 
         public bool  IsSubscrivedToNews { get; set; }
-        [Required]
+       
         public Plan Plan { get; set; }
         public int PlanID { get; set; }
     }

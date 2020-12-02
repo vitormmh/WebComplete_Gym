@@ -55,7 +55,7 @@ namespace WebComplete.Controllers
 
             PlanUserViewModel viewModel = new PlanUserViewModel()
             {
-                 cliente = new Client(),
+                 Cliente = new Client(),
                 Planos = Planox,
 
             };
@@ -65,28 +65,9 @@ namespace WebComplete.Controllers
         }
 
 
-
-
         [HttpPost]
         public ActionResult Save(Client cliente)
         {
-
-            if (!ModelState.IsValid)
-            {
-
-                var viewModel = new PlanUserViewModel()
-                {
-                    Planos = _context.Plan.ToList(),
-                    cliente = cliente
-
-                };
-
-                ViewBag.Acao = "Novo Cliente";
-                return View("New", viewModel);
-            }
-
-
-
 
             if (cliente.Id == 0)
             {
@@ -102,11 +83,12 @@ namespace WebComplete.Controllers
                 cadaLinha.BirthDate = cliente.BirthDate;
                 cadaLinha.SubscribeDate = cliente.SubscribeDate;
                 cadaLinha.IsSubscrivedToNews = cliente.IsSubscrivedToNews;
-              
+
+
+
             }
-   
             _context.SaveChanges();
-            return RedirectToAction("Index","Client");
+            return RedirectToAction("Index", "Client");
         }
       
         
@@ -129,7 +111,7 @@ namespace WebComplete.Controllers
             var  viewModel = new PlanUserViewModel()
             {
                 Planos = Planox,
-                cliente = client
+                Cliente = client
 
             };
             ViewBag.Acao = "Editar Cliente";
