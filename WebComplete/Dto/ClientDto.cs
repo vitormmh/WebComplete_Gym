@@ -22,7 +22,8 @@ namespace WebComplete.Dto
 
         public DateTime BirthDate { get; set; }
         public DateTime SubscribeDate { get; set; }
-        public bool IsSubscrivedToNews { get; set; }
+        public Plan Plan { get; set; }
+        public int PlanID { get; set; }
 
 
 

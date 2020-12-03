@@ -30,15 +30,20 @@ namespace WebComplete.Controllers.Api
 
         //Get /api/Clients/1
      
-        public ClientDto GetClient(int Id)
+        //public ClientDto GetClient(int Id)
+        public IHttpActionResult GetClient(int Id)
         {
             var cliente = _context.Client.SingleOrDefault(c => c.Id == Id);
             if (cliente == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-
+                //throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
             }
-            else { return Mapper.Map<Client,ClientDto>(cliente); }
+            else
+            {
+                //  return Mapper.Map<Client,ClientDto>(cliente);
+                return Ok(Mapper.Map<Client, ClientDto>(cliente));
+            }
          
         }
 
