@@ -1,0 +1,73 @@
+﻿del List<WebComplete.Models.Client>
+    @{
+        ViewBag.Title = "Home Page";
+    }
+
+    
+    
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#teste").on("click", ".js-excluir", function () {
+                var button = $(this);
+                bootbox.confirm("Deseja excluir este ciente ?", function (result) {
+                    if (result)
+                    {
+                        $.ajax({
+                            url: "/api/clients/" + button.attr("data-client-id"),
+                            method: "DELETE",
+                            sucess: function () {
+                                button.parents("tr").remove();
+                            }//sucess
+                        });//ajax
+                    }//if result    
+                });
+            
+        });//fcn principal
+
+        $("#teste").DataTable();
+   });
+
+        
+
+                        //como o this so funciona dentro da propria funcion tive que declarar uma variavel noutra funcao e chama-la aqui
+                        //porque é nesta funcao que vai ter o retorno e não na anterior.
+                        // parents("tr").remove -> remove a tablerow
+
+        // sempre que quiser chamar o jQuery sem ser num foreach (codigo que esta a ser executado em tempo real) , desde que seja codigo estatico então posso fazer:
+        //  $(".js-excluir").("click", function ()
+    </script> 
+    <div class="jum">
+        <h4>Apresentação Datatable</h4>
+    </div>
+   
+
+    <table id="teste" class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Plano</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Mail</td>
+                    <td>@item.Plan.Name</td>
+                    <td>@Html.ActionLink("Editar","Edit", new {id = item.Id }, new {@class="btn btn-warning" })
+                        @Html.ActionLink("Novo", "New", null, new { @class = "btn btn-success" })
+                    <button data-client-id="@item.Id"class="btn btn-danger js-excluir">Excluir</button>
+
+        
+                   
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+

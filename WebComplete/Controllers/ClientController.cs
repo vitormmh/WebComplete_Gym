@@ -28,8 +28,15 @@ namespace WebComplete.Controllers
             return View(Clientes);
         }
 
-        // Falta rever a parte de segurança - neste caso se passar o delete/Id no browser ele vai apagar 
-        
+        public ActionResult IndexApi()
+        {
+
+            List<Client> ClientesApi = _context.Client.Include(c => c.Plan).ToList();
+
+            return View(ClientesApi);
+        }
+ 
+
         public ActionResult Delete(int Id)
         {
             var cli = _context.Client.Find(Id);
